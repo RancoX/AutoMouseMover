@@ -69,12 +69,12 @@ class Mover(QRunnable):
             duration=round(2*random(),2)
             sleeping_time=randint(2,180)
 
-            print(f"Now moving cursor to <{x},{y}> and then will sleep for {sleeping_time}s")
+            print(f"[{datetime.now().strftime(r"%A, %Y-%m-%d %H:%M:%S")}] Now moving cursor to <{x},{y}> and then will sleep for {sleeping_time}s")
             # move cursor
             pg.moveTo(x,y,duration=duration)
             if sleeping_time>60:
                 pg.press(self.key)
-                print(f"Key <{self.key}> has been pressed!")
+                print(f"[{datetime.now().strftime(r"%A, %Y-%m-%d %H:%M:%S")}] Key <{self.key}> has been pressed!")
 
             # hold off
             sleep(sleeping_time)
@@ -85,24 +85,24 @@ class Mover(QRunnable):
             if now_date > self.stop_date:
                 # passed user defined stop date, stop
                 self.flag=False
-                print(f"It's already {now_date},relaxxxxxxx......")
+                print(f"[{datetime.now().strftime(r"%A, %Y-%m-%d %H:%M:%S")}] It's already {now_date},relaxxxxxxx......")
             else:
                 # stop date not yet reached
                 if now_hr > self.stop_hr:
                     self.flag=False
-                    print(f"It's {self.stop_hr}:{self.stop_min:02}:00! No one's watching anymore...")
+                    print(f"[{datetime.now().strftime(r"%A, %Y-%m-%d %H:%M:%S")}] It's {self.stop_hr}:{self.stop_min:02}:00! No one's watching anymore...")
                 if now_hr == self.stop_hr:
                     if now_min >= self.stop_min:
                         self.flag=False
-                        print(f"It's {self.stop_hr}:{self.stop_min:02}:00! No one's watching anymore...")
-        
+                        print(f"[{datetime.now().strftime(r"%A, %Y-%m-%d %H:%M:%S")}] It's {self.stop_hr}:{self.stop_min:02}:00! No one's watching anymore...")
+         
         # enable run button again
         self.QtObj.run_btn.setEnabled(True)
         self.QtObj.stop_btn.setEnabled(False)
 
     
 class MyMainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self): 
         super().__init__()
         self.setWindowTitle('Auto mouse mover 2.0')
         self.setFixedSize(400,200)
